@@ -2,7 +2,7 @@ import pandas as pd
 from fastapi import FastAPI
 from datetime import datetime
 
-df = pd.read_csv('Dataset/movies.csv', sep = ',', header = 0)
+df = pd.read_excel('Dataset/movies.xlsx')
 df['release_date'] = pd.to_datetime(df.release_date)
 df['production_countries'].fillna('', inplace = True)
 df['production_companies'].fillna('', inplace = True)
