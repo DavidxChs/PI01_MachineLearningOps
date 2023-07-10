@@ -67,7 +67,7 @@ def productoras_exitosas(Productora: str):
         productoraList = []
         # Coloco valores booleanos para escojer las filas en donde está esa productora
         for item in df['production_companies']:
-            if Productora in item:
+            if Productora.lower() in item.lower():
                 productoraList.append(True)
             else:
                 productoraList.append(False)
