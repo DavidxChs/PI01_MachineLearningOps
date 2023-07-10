@@ -29,7 +29,7 @@ def peliculas_duracion(Pelicula: str):
         mask = df['title'].str.lower() == Pelicula.lower()
         duracion = df[mask]['runtime'].to_list()[0]
         año = df[mask]['release_year'].to_list()[0]
-        return f'{Pelicula.capitalize()}. Duración: {duracion}. Año: {año}'
+        return f'{Pelicula.title()}. Duración: {duracion}. Año: {año}'
     else:
         return 'El nombre o título de esa película no existe'
 
@@ -41,7 +41,7 @@ def franquicia(Franquicia: str):
         cantidad = df[mask].shape[0]
         g_promedio = round(df[mask]['revenue'].mean(), 2)
         g_total = round(df[mask]['revenue'].sum(), 2)
-        respuesta = f'La franquicia {Franquicia.capitalize()} posee {cantidad} peliculas, una ganancia total de {g_total} y una ganancia promedio de {g_promedio}'
+        respuesta = f'La franquicia {Franquicia.title()} posee {cantidad} peliculas, una ganancia total de {g_total} y una ganancia promedio de {g_promedio}'
         return respuesta
     else:
         return 'La franquicia que fue ingresada no existe'
@@ -50,11 +50,13 @@ def franquicia(Franquicia: str):
 def peliculas_pais(Pais: str):
     paiseslist = df['production_countries'].str.lower().unique().tolist()
     if (Pais.lower() in paiseslist):
+        # Declaro la variable "contador" que servirá para ver cuántas veces está el País en el dataframe
         contador = 0
         for item in df['production_countries']:
-            if Pais in item:
+            # Si "Pais" se encuentra dentro del campo "production_countries", aumenta 1 al contador
+            if Pais.lower() in item.lower():
                 contador += 1
-        return f'Se produjeron {contador} películas en el país {Pais.capitalize()}'
+        return f'Se produjeron {contador} películas en el país {Pais.title()}'
     else:
         return 'El país ingresado no existe'
 
@@ -63,14 +65,16 @@ def productoras_exitosas(Productora: str):
     listproductoras = df['production_companies'].str.lower().unique().tolist()
     if (Productora.lower() in listproductoras):
         productoraList = []
+        # Coloco valores booleanos para escojer las filas en donde está esa productora
         for item in df['production_companies']:
             if Productora in item:
                 productoraList.append(True)
             else:
                 productoraList.append(False)
+        # Sumo el venue total es las películas que la productora a realizado
         revenue = df[productoraList]['revenue'].sum()
         peliculas = df[productoraList].shape[0]
-        return f'La productora {Productora.capitalize()} ha tenido un revenue de {revenue} y ha realizado en total {peliculas} películas'
+        return f'La productora {Productora.title()} ha tenido un revenue de {revenue} y ha realizado en total {peliculas} películas'
     else:
         return 'No existen productoras con el nombre que se ha ingresado'
 
@@ -85,7 +89,7 @@ def get_director(nombre_director):
         retorno = df[mask]['return'].to_list()
         costo = df[mask]['budget'].to_list()
         ganancia = df[mask]['revenue'].to_list()
-        respuesta = {'director' : nombre_director, 'retorno_total_director' : exito, 
+        respuesta = {'director' : nombre_director.title(), 'retorno_total_director' : exito, 
                      'peliculas' : peliculas, 'fecha' : fecha, 'retorno_pelicula' : retorno, 
                      'budget_pelicula' : costo, 'revenue_pelicula' : ganancia}
         return respuesta
