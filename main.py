@@ -6,7 +6,7 @@ from sklearn import preprocessing
 from scipy.sparse import hstack
 from fastapi import FastAPI
 
-df = pd.read_excel('Dataset/movies.xlsx')
+df = pd.read_excel('Dataset_transformado/movies.xlsx')
 df['production_countries'].fillna('', inplace = True)
 df['production_companies'].fillna('', inplace = True)
 
