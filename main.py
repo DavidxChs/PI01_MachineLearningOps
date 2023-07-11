@@ -105,7 +105,7 @@ def recomendacion(titulo):
         # Defino la fila que contiene el tpitulo de la película seleccionada
         fila_especial = ndf[ndf['title'].str.lower() == titulo.lower()]
         # Tomo una muestra aleatoria de las filas del dataframe para evitar problemas de memoria
-        ndf = ndf.sample(frac = 0.2)
+        ndf = ndf.sample(frac = 0.07)
         # Incluyo en este dataframe la fila que contiene el título de la película seleccionada
         ndf = pd.concat([fila_especial, ndf])
         # Reseteo lo indices en el dataframe "ndf"
